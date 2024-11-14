@@ -7,7 +7,7 @@ private:
     int size;
     bool isHorizontal;
     int x;  // Ship's starting position
-    char col; // \Ship's starting position
+    char col; // Ship's starting position
 public:
     int& getSize() {return this->size;}
     bool& getIsHorizontal() {return this->isHorizontal;}
