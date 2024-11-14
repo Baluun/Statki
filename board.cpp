@@ -32,7 +32,7 @@ Board::~Board()
 void Board::displayBoard(Board targetBoard) 
 {
     cout << "Twoja plansza"   << "          Plansza przeciwnika: "  << endl;
-    cout << "  1 2 3 4 5 6 7 8 9 10        1 2 3 4 5 6 7 8 9 10\n";  // Column headings
+    cout << "  1 2 3 4 5 6 7 8 9 10        1 2 3 4 5 6 7 8 9 10" << endl;  // Column headings
 
     for(int i = 0; i < 10; i++) 
     {
