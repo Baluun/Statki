@@ -9,19 +9,13 @@ Board::Board() {
 
     for(int i = 0; i < 10; i++) 
     {
-
         for(int j = 0; j < 10; j++) 
         {
-
             grid[i][j] = '~';  // Water
-
         }
-
     }
 
-
     numShips = 0;
-
 }
 
 Board::~Board()
@@ -44,7 +38,6 @@ void Board::displayBoard(Board targetBoard)
             cout << grid[i][j] << " ";  // View board status
         }
         
-
         cout << "        ";  // Spacing between boards
 
         // Displaying the opponent's board
@@ -69,8 +62,11 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
     if(isHorizontal) 
     {
         // Check that the ship fits horizontally on the board
-        if (x + size > 10) return false;
-
+        if (x + size > 10) 
+        {
+            cout << "Statek wychodzi poza plansze" << endl;
+            return false;
+        }
         // Iterate through each square where the ship is to be placed
         for(int i = 0; i < size; i++) 
         {
@@ -79,6 +75,7 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
             // Check if the main field is free
             if(grid[currentRow][currentCol] == 'S') 
             {
+                cout << "Statek nachodzi na inny statek" << endl;
                 return false;
             }
 
@@ -99,6 +96,7 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
                 {
                     if(grid[neighborRow][neighborCol] == 'S') 
                     {
+                        cout << "Statek styka sie z innym statkiem" << endl;
                         return false;
                     }
 
@@ -112,6 +110,7 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
         // Check if the ship fits vertically on the board
         if(y + size > 10) 
         {
+            cout << "Statek wychodzi poza plansze" << endl;
             return false;
         }
 
@@ -124,6 +123,7 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
             // Check if the main field is free
             if(grid[currentRow][currentCol] == 'S') 
             {
+                cout << "Statek nachodzi na inny statek" << endl;
                 return false;
             }
             // Checking all eight adjacent squares
@@ -143,6 +143,7 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
                 {
                     if(grid[neighborRow][neighborCol] == 'S') 
                     {
+                        cout << "Statek styka sie z innym statkiem" << endl;
                         return false;
                     }
                 }
@@ -153,10 +154,6 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
     return true; // If no adjacent space is occupied, a ship may be placed
     
 }
-
-
-    
-
 
 void Board::placeShip(Ship& ship, int x, int y, bool isHorizontal)
 {
@@ -178,8 +175,6 @@ void Board::placeShip(Ship& ship, int x, int y, bool isHorizontal)
         }
     }
 }
-
-
 
 bool Board::checkHit(int x, int y) {
 
@@ -209,11 +204,6 @@ void Board::hitOrMiss(int x, int y, bool isHit)
         }
 
 }
-
-
-
-
-
 
 bool Board::checkIfShipSunk(int x, int y) 
 {
@@ -310,7 +300,7 @@ void Board::markSurroundingAsMisses(int x, int y)
     }
 }
 
-bool Board:: allShipsSunk()
+bool Board::allShipsSunk()
 {
     if(numShips == 0)
     {
@@ -322,7 +312,7 @@ bool Board:: allShipsSunk()
     }
 }
 
-bool Board:: validateShipPositionInput(char colInput, int rowInput, int orientation) {
+bool Board::validateShipPositionInput(char colInput, int rowInput, int orientation) {
     // Checking if the first character (line) is a letter from 'A' to 'J'
     if (cin.fail() || colInput < 'A' || colInput > 'J') 
     {
@@ -354,7 +344,7 @@ bool Board:: validateShipPositionInput(char colInput, int rowInput, int orientat
     return true;
 }
 
-bool Board:: validateShotInput(char colInput, int rowInput) 
+bool Board::validateShotInput(char colInput, int rowInput) 
 {
     // Checking if the first character (line) is a letter from 'A' to 'J'
     if (cin.fail() || colInput < 'A' || colInput > 'J') 
@@ -377,7 +367,7 @@ bool Board:: validateShotInput(char colInput, int rowInput)
     // If everything is correct
     return true;
 }
-bool Board:: isShotAgain(int x, int y)
+bool Board::isShotAgain(int x, int y)
 {
     if(grid[x][y] == 'X' || grid[x][y] == 'O')
     {
@@ -390,12 +380,12 @@ bool Board:: isShotAgain(int x, int y)
     }
 }
 
-void Board:: decreaseNumOfShips()
+void Board::decreaseNumOfShips()
 {
     numShips--;
 }
 
-bool Board:: isCellInCheckedAndGrid(int i, int j)
+bool Board::isCellInCheckedAndGrid(int i, int j)
 {
     if(checked[i][j] && grid[i][j] == 'X')
     {

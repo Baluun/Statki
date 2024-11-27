@@ -19,11 +19,19 @@ int main()
         player1.getOwnBoard().displayBoard(player1.getTargetBoard());
         player1.placeShips();
         cout << "\033[2J\033[1;1H";
+        cout << "Naciśnij enter, aby kontynuować i przejść do rozmieszczania statków gracza " << player2.getName() << "." << endl;
+        cin.ignore();
+        cin.get();  // Pauza na wprowadzenie dowolnego klawisza
+        cout << "\033[2J\033[1;1H";  // Czyszczenie ekranu
 
         cout << player2.getName() << " rozmieszcza statki" << endl;
         player2.getOwnBoard().displayBoard(player1.getTargetBoard());
         player2.placeShips();
         cout << "\033[2J\033[1;1H";
+        cout << "Naciśnij enter, aby kontynuować i przejść tury gracza " << player1.getName() << "." << endl;
+        cin.ignore();
+        cin.get();  // Pauza na wprowadzenie dowolnego klawisza
+        cout << "\033[2J\033[1;1H";  // Czyszczenie ekranu
 
         bool player1Turn = true;
         bool gameOn = true;
@@ -36,8 +44,15 @@ int main()
                 player1.getOwnBoard().displayBoard(player1.getTargetBoard());
                 if(!player1.takeTurn(player2)) 
                 {
+                    player1.getOwnBoard().displayBoard(player1.getTargetBoard());
                     player1Turn = false;
+                    cout << "Naciśnij enter aby, wyczyścic konsole" << endl;
+                    cin.ignore();
+                    cin.get();
                     cout << "\033[2J\033[1;1H";
+                    cout << "Naciśnij enter, aby kontynuować i przejść do tury gracza " << player2.getName() << "." << endl;
+                    cin.get();  // Pauza na wprowadzenie dowolnego klawisza
+                    cout << "\033[2J\033[1;1H";  // Czyszczenie ekranu
                 }
                 if(player2.getOwnBoard().allShipsSunk())     
                 {
@@ -52,8 +67,15 @@ int main()
                 player2.getOwnBoard().displayBoard(player2.getTargetBoard());
                 if(!player2.takeTurn(player1)) 
                 {
+                    player2.getOwnBoard().displayBoard(player2.getTargetBoard());
                     player1Turn = true;
+                    cout << "Naciśnij enter aby, wyczyścić konsole" << endl;
+                    cin.ignore();
+                    cin.get();
                     cout << "\033[2J\033[1;1H";
+                    cout << "Naciśnij enter, aby kontynuować i przejść do tury gracza " << player1.getName() << "." << endl;
+                    cin.get();  // Pauza na wprowadzenie dowolnego klawisza
+                    cout << "\033[2J\033[1;1H";  // Czyszczenie ekranu
                 }
                 if(player1.getOwnBoard().allShipsSunk()) 
                 {

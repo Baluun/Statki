@@ -20,15 +20,23 @@ void Player::placeShips()
     {
         Ship ship(sizes[i]);
         int x, y;
-        int isHorizontal;
+        int isHorizontal = 1;
         char col;
         do
         {
             do
             {
                 cout << name << " ustaw statek o rozmiarze: " << sizes[i] << endl;
-                cout << "Podaj współrzędne (kolumna A-J spacja, wiersz 1-10 spacja,) i orientację (1 - poziomo, 0 - pionowo): ";
-                cin >> col >> y >> isHorizontal;
+                if(sizes[i] == 1)
+                {
+                    cout << "Podaj współrzędne (kolumna A-J spacja, wiersz 1-10 spacja): ";
+                    cin >> col >> y;
+                }
+                else
+                {
+                    cout << "Podaj współrzędne (kolumna A-J spacja, wiersz 1-10 spacja) i orientację(1-poziomo, 0-pionowo): ";
+                    cin >> col >> y >> isHorizontal;
+                }
             }
             while(!getOwnBoard().validateShipPositionInput(col, y, isHorizontal));
             
