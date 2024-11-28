@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Ship::Ship(int size) : size(size), x(-1), col(-1), isHorizontal(true) 
+Ship::Ship(int size) : size(size), y(-1), x(-1), isHorizontal(true) 
 {
 
 }
@@ -12,22 +12,22 @@ Ship::~Ship()
 {
 }
 
-void Ship::place(int x, char col, bool isHorizontal) 
+void Ship::place(int y, char x, bool isHorizontal) 
 {
+    getY() = y;
     getX() = x;
-    getCol() = col;
     getIsHorizontal() = isHorizontal;
 }
 
-bool Ship::isHit(int hitX, char hitCol) 
+bool Ship::isHit(int hitY, char hitX) 
 {
     if (isHorizontal) 
     {
-        return hitX == x && hitCol >= col && hitCol < col + size;
+        return hitY == y && hitX >= x && hitX < x + size;
     } 
     else 
     {
-        return hitCol == col && hitX >= x && hitX < x + size;
+        return hitX == x && hitY >= y && hitY < y + size;
     }
 }
 

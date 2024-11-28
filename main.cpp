@@ -87,7 +87,7 @@ int main()
         }
 
         cout << player1.getName() << ": " << player1Wins << " wygranych" << endl;
-        cout << player1.getName() << ": " << player2Wins << " wygranych" << endl;
+        cout << player2.getName() << ": " << player2Wins << " wygranych" << endl;
 
         string choice;
         cout << "Czy chcesz zagrać ponownie? (yes/no): ";
@@ -95,7 +95,16 @@ int main()
         if(choice == "no") 
         {
            playAgain = false;
-        }        
+        }
+        player1.getOwnBoard().resetBoard();
+        player1.getTargetBoard().resetBoard();
+        player2.getOwnBoard().resetBoard();
+        player2.getTargetBoard().resetBoard(); 
+        player1.getOwnBoard().setNumberOfShipsZero();
+        player1.getTargetBoard().setNumberOfShipsZero();
+        player2.getOwnBoard().setNumberOfShipsZero();
+        player2.getTargetBoard().setNumberOfShipsZero();
+
     }
 
     return 0;

@@ -48,7 +48,11 @@ public:
 
     void decreaseNumOfShips();
 
+    void setNumberOfShipsZero();
+
     bool isCellInCheckedAndGrid(int i, int j);
+
+    void resetBoard();
 
 };
 

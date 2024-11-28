@@ -19,9 +19,9 @@ void Player::placeShips()
     for(int i = 0; i < 10; i++) 
     {
         Ship ship(sizes[i]);
-        int x, y;
+        int y;
         int isHorizontal = 1;
-        char col;
+        char x;
         do
         {
             do
@@ -30,17 +30,17 @@ void Player::placeShips()
                 if(sizes[i] == 1)
                 {
                     cout << "Podaj współrzędne (kolumna A-J spacja, wiersz 1-10 spacja): ";
-                    cin >> col >> y;
+                    cin >> x >> y;
                 }
                 else
                 {
                     cout << "Podaj współrzędne (kolumna A-J spacja, wiersz 1-10 spacja) i orientację(1-poziomo, 0-pionowo): ";
-                    cin >> col >> y >> isHorizontal;
+                    cin >> x >> y >> isHorizontal;
                 }
             }
-            while(!getOwnBoard().validateShipPositionInput(col, y, isHorizontal));
+            while(!getOwnBoard().validateShipPositionInput(x, y, isHorizontal));
             
-            x = col - 'A';  // Converting a letter to an index
+            x = x - 'A';  // Converting a letter to an index
             y--;  // Adapting to an array index
         } 
         while(!getOwnBoard().canPlaceShip(x, y, sizes[i], isHorizontal));
@@ -51,18 +51,18 @@ void Player::placeShips()
 
 bool Player::takeTurn(Player& opponent) 
 {
-    int x, y;
-    char col;
+    int y;
+    char x ;
     do
     {
         do
         {
             cout << name << " podaj współrzędne strzału (kolumna A-J, wiersz 1-10): ";
-            cin >> col >> y;
+            cin >> x >> y;
         }
-        while(getTargetBoard().validateShotInput(col, y) == false);
+        while(getTargetBoard().validateShotInput(x, y) == false);
         
-        x = col - 'A';
+        x = x - 'A';
         y--;
     }
     while(getTargetBoard().isShotAgain(x, y) == false);

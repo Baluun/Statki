@@ -385,6 +385,12 @@ void Board::decreaseNumOfShips()
     numShips--;
 }
 
+
+void Board::setNumberOfShipsZero()
+{
+    numShips = 0;
+}
+
 bool Board::isCellInCheckedAndGrid(int i, int j)
 {
     if(checked[i][j] && grid[i][j] == 'X')
@@ -395,4 +401,18 @@ bool Board::isCellInCheckedAndGrid(int i, int j)
     {
         return false;
     }
+}
+
+void Board::resetBoard() 
+{
+    // Resetowanie planszy do początkowego stanu
+    for(int i = 0; i < 10; i++) 
+    {
+        for(int j = 0; j < 10; j++) 
+        {
+            grid[i][j] = '~'; // Woda
+            checked[i][j] = false;
+        }
+    }
+    
 }
