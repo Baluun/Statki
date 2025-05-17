@@ -22,6 +22,8 @@ public:
     void placeShips();
     
     bool takeTurn(Player& opponent);
+
+    
 };
 
 #endif

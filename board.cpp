@@ -1,11 +1,11 @@
 #include "board.h"
 #include <iostream>
-#include <iomanip>
 #include <algorithm>
 #include <limits>
 using namespace std;
 
-Board::Board() {
+Board::Board() 
+{
 
     for(int i = 0; i < 10; i++) 
     {
@@ -25,38 +25,73 @@ Board::~Board()
 
 void Board::displayBoard(Board targetBoard) 
 {
-    cout << "Twoja plansza"   << "          Plansza przeciwnika: "  << endl;
-    cout << "  1 2 3 4 5 6 7 8 9 10        1 2 3 4 5 6 7 8 9 10" << endl;  // Column headings
+    cout << "  Twoja plansza:" << "              Plansza przeciwnika: " << endl;
+    cout << "  1 2 3 4 5 6 7 8 9 10        1 2 3 4 5 6 7 8 9 10" << endl; // Nagłówki kolumn
 
     for(int i = 0; i < 10; i++) 
     {
-        cout << char('A' + i) << " ";  // Row headings (letters A-J)
+        cout << char('A' + i) << " "; // Nagłówki wierszy (litery A-J)
 
-        // Displaying the player board
-        for(int j = 0; j < 10; j++)
-        {
-            cout << grid[i][j] << " ";  // View board status
-        }
-        
-        cout << "        ";  // Spacing between boards
-
-        // Displaying the opponent's board
+        // Wyświetlanie planszy gracza
         for(int j = 0; j < 10; j++) 
         {
-            if(targetBoard.grid[i][j] == 'S') 
+            if(grid[i][j] == '~') 
             {
-                cout << "~ ";  // Hide ships
+                setConsoleColor(9); // Niebieski dla wody
+                cout << "~ ";
+            } 
+            else if(grid[i][j] == 'S') 
+            {
+                setConsoleColor(10); // Zielony dla statków
+                cout << "S ";
+            } 
+            else if(grid[i][j] == 'X') 
+            {
+                setConsoleColor(12); // Czerwony dla trafień
+                cout << "X ";
+            } 
+            else if(grid[i][j] == 'O') 
+            {
+                setConsoleColor(7); // Biały dla pudeł
+                cout << "O ";
+            }
+        }
+
+        setConsoleColor(7); // Resetowanie koloru
+        cout << "        "; // Odstęp między planszami
+
+        // Wyświetlanie planszy przeciwnika
+        for(int j = 0; j < 10; j++) 
+        {
+            if(targetBoard.grid[i][j] == '~') 
+            {
+                setConsoleColor(9); // Niebieski dla wody
+                cout << "~ ";
+            } 
+            else if(targetBoard.grid[i][j] == 'X') 
+            {
+                setConsoleColor(12); // Czerwony dla trafień
+                cout << "X ";
+            } 
+            else if(targetBoard.grid[i][j] == 'O') 
+            {
+                setConsoleColor(7); // Biały dla pudeł
+                cout << "O ";
             } 
             else 
             {
-                cout << targetBoard.grid[i][j] << " ";  // View board status
+                setConsoleColor(9); // Ukrywanie statków przeciwnika
+                cout << "~ ";
             }
         }
-        cout << endl;  // A new line after each line
-    }
-    }
 
-bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal) 
+        setConsoleColor(7); // Resetowanie koloru
+        cout << endl; // Nowa linia po każdym wierszu
+    }
+    cout << endl;
+}
+
+bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal, bool isPlayerPlaceShip) 
 {
     // Check for horizontal ship (changes column `x`)
     if(isHorizontal) 
@@ -64,7 +99,10 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
         // Check that the ship fits horizontally on the board
         if (x + size > 10) 
         {
-            cout << "Statek wychodzi poza plansze" << endl;
+            if(isPlayerPlaceShip == true)
+            {    
+                cout << "Statek wychodzi poza plansze" << endl;
+            }
             return false;
         }
         // Iterate through each square where the ship is to be placed
@@ -75,7 +113,10 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
             // Check if the main field is free
             if(grid[currentRow][currentCol] == 'S') 
             {
-                cout << "Statek nachodzi na inny statek" << endl;
+                if(isPlayerPlaceShip == true)
+                {
+                    cout << "Statek nachodzi na inny statek" << endl;
+                }
                 return false;
             }
 
@@ -96,7 +137,10 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
                 {
                     if(grid[neighborRow][neighborCol] == 'S') 
                     {
-                        cout << "Statek styka sie z innym statkiem" << endl;
+                        if(isPlayerPlaceShip == true)
+                        {    
+                            cout << "Statek styka sie z innym statkiem" << endl;
+                        }
                         return false;
                     }
 
@@ -110,7 +154,10 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
         // Check if the ship fits vertically on the board
         if(y + size > 10) 
         {
-            cout << "Statek wychodzi poza plansze" << endl;
+            if(isPlayerPlaceShip == true)
+            {
+                cout << "Statek wychodzi poza plansze" << endl;
+            }
             return false;
         }
 
@@ -123,7 +170,10 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
             // Check if the main field is free
             if(grid[currentRow][currentCol] == 'S') 
             {
-                cout << "Statek nachodzi na inny statek" << endl;
+                if(isPlayerPlaceShip == true)
+                {    
+                    cout << "Statek nachodzi na inny statek" << endl;
+                }
                 return false;
             }
             // Checking all eight adjacent squares
@@ -143,7 +193,10 @@ bool Board::canPlaceShip(int y, int x, int size, bool isHorizontal)
                 {
                     if(grid[neighborRow][neighborCol] == 'S') 
                     {
-                        cout << "Statek styka sie z innym statkiem" << endl;
+                        if(isPlayerPlaceShip == true)
+                        {
+                            cout << "Statek styka sie z innym statkiem" << endl;
+                        }
                         return false;
                     }
                 }
@@ -415,4 +468,10 @@ void Board::resetBoard()
         }
     }
     
+}
+
+void Board::setConsoleColor(int color) 
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
 }

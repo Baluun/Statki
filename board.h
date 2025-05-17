@@ -24,7 +24,7 @@ public:
     
     void displayBoard(Board targetBoard);
 
-    bool canPlaceShip(int y, int x, int size, bool isHorizontal);
+    bool canPlaceShip(int y, int x, int size, bool isHorizontal, bool isPlayerPlaceShip);
 
     void placeShip(Ship& ship, int x, int y, bool isHorizontal);
 
@@ -54,6 +54,7 @@ public:
 
     void resetBoard();
 
+    void setConsoleColor(int color);
 };
 
 #endif

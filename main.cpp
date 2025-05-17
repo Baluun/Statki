@@ -15,20 +15,34 @@ int main()
 
     while(playAgain) 
     {
+        cout << "========================================" << endl;
         cout << player1.getName() << " rozmieszcza statki" << endl;
+        cout << "========================================" << endl;
+        cout << endl;
         player1.getOwnBoard().displayBoard(player1.getTargetBoard());
         player1.placeShips();
+        cout << "Naciśnij enter, aby wyczyścić konsole"<< endl;
+        cin.ignore();
+        cin.get();
         cout << "\033[2J\033[1;1H";
         cout << "Naciśnij enter, aby kontynuować i przejść do rozmieszczania statków gracza " << player2.getName() << "." << endl;
+        Beep(750, 400);
         cin.ignore();
         cin.get();  // Pauza na wprowadzenie dowolnego klawisza
         cout << "\033[2J\033[1;1H";  // Czyszczenie ekranu
 
+        cout << "========================================" << endl;
         cout << player2.getName() << " rozmieszcza statki" << endl;
+        cout << "========================================" << endl;
+        cout << endl;
         player2.getOwnBoard().displayBoard(player1.getTargetBoard());
         player2.placeShips();
+        cout << "Naciśnij enter, aby wyczyścić konsole"<< endl;
+        cin.ignore();
+        cin.get();  // Pauza na wprowadzenie dowolnego klawisza
         cout << "\033[2J\033[1;1H";
-        cout << "Naciśnij enter, aby kontynuować i przejść tury gracza " << player1.getName() << "." << endl;
+        cout << "Naciśnij enter, aby kontynuować i przejść do tury gracza " << player1.getName() << "." << endl;
+        Beep(750, 400);
         cin.ignore();
         cin.get();  // Pauza na wprowadzenie dowolnego klawisza
         cout << "\033[2J\033[1;1H";  // Czyszczenie ekranu
@@ -51,6 +65,7 @@ int main()
                     cin.get();
                     cout << "\033[2J\033[1;1H";
                     cout << "Naciśnij enter, aby kontynuować i przejść do tury gracza " << player2.getName() << "." << endl;
+                    Beep(750, 400);
                     cin.get();  // Pauza na wprowadzenie dowolnego klawisza
                     cout << "\033[2J\033[1;1H";  // Czyszczenie ekranu
                 }
@@ -74,6 +89,7 @@ int main()
                     cin.get();
                     cout << "\033[2J\033[1;1H";
                     cout << "Naciśnij enter, aby kontynuować i przejść do tury gracza " << player1.getName() << "." << endl;
+                    Beep(750, 400);
                     cin.get();  // Pauza na wprowadzenie dowolnego klawisza
                     cout << "\033[2J\033[1;1H";  // Czyszczenie ekranu
                 }
@@ -85,14 +101,19 @@ int main()
                 }
             }
         }
+        cout <<"Plansza gracza " << player1.getName() << endl;
+        player1.getOwnBoard().displayBoard(player1.getTargetBoard());
+        cout << endl;
+        cout <<"Plansza gracza " << player2.getName() << endl;
+        player2.getOwnBoard().displayBoard(player2.getTargetBoard());
 
         cout << player1.getName() << ": " << player1Wins << " wygranych" << endl;
         cout << player2.getName() << ": " << player2Wins << " wygranych" << endl;
 
         string choice;
-        cout << "Czy chcesz zagrać ponownie? (yes/no): ";
+        cout << "Czy chcesz zagrać ponownie? (tak/nie): ";
         cin >> choice;
-        if(choice == "no") 
+        if(choice == "nie") 
         {
            playAgain = false;
         }
